@@ -1,8 +1,9 @@
 # ===========================================================================================
 # Presentation Graphic Stream (SUP files) rebuild:
-# Rebuild SUP file for compatibility with ExoPlayer versions prior to AndroidX Media 1.2.1
+# Rebuild SUP file for compatibility with ExoPlayer versions prior to AndroidX Media 1.2.X
+# reference: ffmpeg ==> pgssubdec.c
 #
-# 2024/02/01
+# 2024/02/06 v-00.01.01
 # ===========================================================================================
 
 import os
@@ -15,7 +16,7 @@ from pathlib import Path
 import argparse
 
 logging.getLogger().setLevel(logging.WARNING)
-logging.basicConfig(format='%(message)s')
+logging.basicConfig(format='%(levelname)s %(message)s')
 
 
 # milliseconds to HH:MM:SS.fff
@@ -272,6 +273,7 @@ class SupRebuild:
         self.__ptsByteData = b'\x00\x00\x00\x00'
 
         self.__clearSegmentData()
+        self.__clearObjectCache()
 
     def generateNewSUP(self):
         self.__buildBuf = bytearray(len(self.__buf)+65536*2)
@@ -283,7 +285,7 @@ class SupRebuild:
         imageInfo = {}
         while (rc := self.getNextDisplaySet()) > 0:
 
-            if self.imageObjectsCount > 0:
+            if self.compositionObjectCount > 0:
                 imageInfo = self.__getImageInfo()
                 if imageInfo is None:
                     self.__buildBuf = None
@@ -316,8 +318,8 @@ class SupRebuild:
                 self.__buildPDS()
 
                 # build ODS
-                if not paletteChangeed and self.imageObjectsCount == 1:   # use original rleData
-                    imageObject = self.imageObjects[0]
+                if not paletteChangeed and self.compositionObjectCount == 1:   # use original rleData
+                    imageObject = self.__findImageObject(self.compositionObjects[0]['oid'])
                     NumberOfsplit = len(imageObject['rleFragmentSize'])
                     if NumberOfsplit == 1:  # only one rle data
                         self.__buildODS(0xC0, imageObject['rleDataLength'],
@@ -334,7 +336,7 @@ class SupRebuild:
                             self.__buildODS(seqFlag, imageObject['rleDataLength'], rleData, imageInfo)
                             rleDataPos += rleDataSize
                 else:  # image object merged, need encode image data
-                    if self.imageObjectsCount > 1:
+                    if self.compositionObjectCount > 1:
                         self.fixExoplayerInfo['multiObjectInfo'].append((self.totalImageCount, ms2hmsf(self.pts)))
                     maxFragSize = 65515
 
@@ -383,7 +385,7 @@ class SupRebuild:
             if logging.root.level > logging.DEBUG:
                 print("")
             if rc == 0:  # parser finish
-                if self.imageObjectsCount != 0 or CompositionState[self.compositionState] != 'Normal':
+                if self.compositionObjectCount > 0 or CompositionState[self.compositionState] != 'Normal':
                     logging.warning("[PARSER-END] This is not a complete sup file !")
                     if self.__createXml:
                         self.__setBdnXmlInfo(None, 1)  # abnormal
@@ -393,6 +395,8 @@ class SupRebuild:
                     self.__buildWDS(lastInfo)
                     self.__buildEND()
                     logging.debug("[PARSER-END] SUP file parsing completed.")
+
+                self.__clearObjectCache()
 
                 # newBufSize = len(self.__buildBuf)
                 del self.__buildBuf[self.__buildBufPosition:]  # cut remaining buffer
@@ -454,18 +458,25 @@ class SupRebuild:
 
     def __getImageInfo(self):
 
+        # get segment palette info
+        paletteInfo = self.__findPaletteInfo(self.pid)
+        if not paletteInfo:
+            logging.error("[IMG-INFO] pid=%d not found !" % self.pid)
+            return None
+        self.__palette = paletteInfo['palette']
+        self.__paletteByteData = paletteInfo['byteData']
+        self.__paletteVer = paletteInfo['paletteVer']
+
         imageInfo = []
         for compObj in self.compositionObjects:
             oid = compObj['oid']
-            for imageObject in self.imageObjects:
-                if imageObject['oid'] == oid:
-                    break
-            else:
+            imageObject = self.__findImageObject(oid)
+            if not imageObject:
                 logging.error("[IMG-INFO] oid=%d not found (image count=%d) !" % (oid, self.totalImageCount))
                 return None
 
             matrixIndex = rleDecode(imageObject['rleImageData'], imageObject['width'], imageObject['height'])
-            matrixAlpha = [[self.palette[idx][3] for idx in line] for line in matrixIndex]
+            matrixAlpha = [[self.__palette[idx][3] for idx in line] for line in matrixIndex]
             imageInfo.append({
                 'objectVer': imageObject['objectVer'],
                 'width': imageObject['width'],
@@ -489,7 +500,7 @@ class SupRebuild:
         if self.__createXml and retImageInfo:
             matrixIndex = np.array(retImageInfo['matrixIndex'], dtype=np.uint8)
             matrixAlpha = np.array(retImageInfo['matrixAlpha'], dtype=np.uint8)
-            yCbCr = np.array([(x[0], x[2], x[1]) for x in self.palette], dtype=np.uint8)  # swap 1,2 to [y, cb, cr]
+            yCbCr = np.array([(x[0], x[2], x[1]) for x in self.__palette], dtype=np.uint8)  # swap 1,2 to [y, cb, cr]
             retImageInfo['img'] = createPaletteImage(matrixIndex, matrixAlpha, yCbCr2RGB(yCbCr))
 
         return retImageInfo
@@ -498,7 +509,7 @@ class SupRebuild:
         top = left = sys.maxsize
         bottom = right = 0
 
-        for idx, paletteItem in enumerate(self.palette):
+        for idx, paletteItem in enumerate(self.__palette):
             if paletteItem[3] == 0:
                 # transparent index found
                 transparentIdx = idx
@@ -527,7 +538,7 @@ class SupRebuild:
             overlayY1 = overlayY0 + imageInfo['height']
             newMatrixIndex[overlayY0:overlayY1, overlayX0:overlayX1] = imageInfo['matrixIndex']
 
-        newMatrixAlpha = [[self.palette[idx][3] for idx in line] for line in newMatrixIndex]
+        newMatrixAlpha = [[self.__palette[idx][3] for idx in line] for line in newMatrixIndex]
         return {
             'objectVer': b'\x00',  # always 0
             'width': newWidth,
@@ -600,9 +611,8 @@ class SupRebuild:
         self.compositionObjectCount = 0
         self.compositionObjects = []
 
-        self.paletteId = -1
-        self.palette = []
-
+    def __clearObjectCache(self):
+        self.paletteInfos = []
         self.imageObjectsCount = 0
         self.imageObjects = []
 
@@ -649,7 +659,7 @@ class SupRebuild:
         self.serialNo = int(self.__buf[pos+5:pos+7].hex(), 16)
         self.compositionState = int(self.__buf[pos+7:pos+8].hex(), 16)
         self.paletteUpdateFlag = int(self.__buf[pos+8:pos+9].hex(), 16)
-        self.presentationPid = int(self.__buf[pos+9:pos+10].hex(), 16)
+        self.pid = int(self.__buf[pos+9:pos+10].hex(), 16)
         self.compositionObjectCount = int(self.__buf[pos+10:pos+11].hex(), 16)
         self.__bufPosition += 11
         size -= 11
@@ -657,6 +667,9 @@ class SupRebuild:
         logging.debug("[PCS]- %d - %s--- %dx%d - frameRate=%d ------"
                       % (self.serialNo, CompositionState[self.compositionState],
                          self.videoWidth, self.videoHeight, self.frameRate))
+
+        if self.compositionState:  # clear cache, except "normal"
+            self.__clearObjectCache()
 
         self.compositionObjects = []
         for idx in range(self.compositionObjectCount):  # get composition objects
@@ -733,9 +746,9 @@ class SupRebuild:
 
     def __PaletteDefinitionSegment(self, size):
         logging.debug("[PDS]-------")
-        if self.__pdsCount:
-            logging.error("[PDS] Too many PDS segment !")
-            return 0
+        # if self.__pdsCount:
+        #    logging.error("[PDS] Too many PDS segment !")
+        #    return 0
 
         if size > (self.__bufSize - self.__bufPosition):
             logging.error("[PDS] Invalid segment size !")
@@ -746,20 +759,33 @@ class SupRebuild:
             return 0
 
         pos = self.__bufPosition
-        self.paletteId = self.__buf[pos]
-        self.paletteVer = self.__buf[pos+1:pos+2]
+        pid = self.__buf[pos]
+        paletteVer = self.__buf[pos+1:pos+2]
         pos += 2
         buf = self.__buf
-        self.__paletteByteData = bytearray(buf[pos:pos+size-2])
-        self.palette = [[0, 0, 0, 0]] * 256
+        paletteByteData = bytearray(buf[pos:pos+size-2])
+        palette = [[0, 0, 0, 0]] * 256
         for idx in range(size // 5):
             # buf[pos]: index of palette, buf[pos+1]: Y, buf[pos+2]: Cr, buf[pos+3]: Cb, buf[pos+4]: alpha
             pIndex = buf[pos]
             if idx != pIndex:
                 print("idx=%d != pIndex=%d" % (idx, pIndex))
-            self.palette[buf[pos]] = [buf[pos+1], buf[pos+2], buf[pos+3], buf[pos+4]]
+            palette[buf[pos]] = [buf[pos+1], buf[pos+2], buf[pos+3], buf[pos+4]]
             pos += 5
         self.__bufPosition += size
+
+        paletteInfo = self.__findPaletteInfo(pid)
+        if not paletteInfo:
+            self.paletteInfos.append({
+                'pid': pid,
+                'byteData': paletteByteData,
+                'palette': palette,
+                'paletteVer': paletteVer
+            })
+        else:
+            paletteInfo['byteData'] = paletteByteData
+            paletteInfo['palette'] = palette
+            paletteInfo['paletteVer'] = paletteVer
 
         self.__pdsCount += 1
         return 1
@@ -792,33 +818,41 @@ class SupRebuild:
             if width > self.videoWidth or height > self.videoHeight or width == 0 or height == 0:
                 logging.error("[ODS%d] Invalid image dimensions %dX%d !" % (self.imageObjectsCount, width, height))
                 return 0
-            self.imageObjects.append({
-                'oid': oid,
-                'objectVer': objectVer,
-                'width': width,
-                'height': height,
-                'rleDataLength': rleDataLength,
-                'rleImageData': bytearray(),
-                'rleFragmentSize': []   # If the data size is too large, it will be split into several fragments.
-            })
-            curImageObjectIdx = self.imageObjectsCount
-            imgObject = self.imageObjects[curImageObjectIdx]
-            logging.debug("[ODS-OBJ] oid:%d, %d*%d " % (imgObject['oid'], imgObject['width'], imgObject['height']))
 
-            self.imageObjectsCount += 1
+            imageObject = self.__findImageObject(oid)
+            if not imageObject:
+                self.imageObjects.append({
+                    'oid': oid,
+                    'objectVer': objectVer,
+                    'width': width,
+                    'height': height,
+                    'rleDataLength': rleDataLength,
+                    'rleImageData': bytearray(),
+                    'rleFragmentSize': []   # If the data size is too large, it will be split into several fragments.
+                })
+                imageObject = self.imageObjects[self.imageObjectsCount]
+                self.imageObjectsCount += 1
+            else:
+                imageObject['objectVer'] = objectVer
+                imageObject['width'] = width
+                imageObject['height'] = height
+                imageObject['rleDataLength'] = rleDataLength
+                imageObject['rleImageData'] = bytearray()
+                imageObject['rleFragmentSize'] = []
+
+            logging.debug("[ODS-OBJ] oid:%d, %d*%d " % (imageObject['oid'],
+                                                        imageObject['width'], imageObject['height']))
+
             self.__bufPosition += 11
             size -= 7
         else:
-            for idx, imageObject in enumerate(self.imageObjects):
-                if imageObject['oid'] == oid:
-                    curImageObjectIdx = idx
-                    break
-            else:
+            imageObject = self.__findImageObject(oid)
+            if not imageObject:
                 logging.error("[ODS%d] oid not found for LAST segment (oid = %d) !" % (self.imageObjectsCount, oid))
                 return 0
+
             self.__bufPosition += 4
 
-        imageObject = self.imageObjects[curImageObjectIdx]
         imageObject['rleFragmentSize'].append(size)
         curDataSize = len(imageObject['rleImageData'])
         rleDataLength = imageObject['rleDataLength']
@@ -841,15 +875,29 @@ class SupRebuild:
         if size > 0:
             logging.error("[END] Segment size  > 0 (%d) !" % size)
             return 0
-        if self.imageObjectsCount:
+        if self.compositionObjectCount > 0:
             self.totalImageCount += 1
             logging.debug("[END]= IMAGE COUNT = %04d, OBJS = %02d ============================="
-                          % (self.totalImageCount, self.imageObjectsCount))
+                          % (self.totalImageCount, self.compositionObjectCount))
         else:
             logging.debug("[END]= NO IMAGE ==================================================")
 
         self.__endCount += 1
         return 1
+
+    def __findPaletteInfo(self, pid):
+        for paletteInfo in self.paletteInfos:
+            if paletteInfo['pid'] == pid:
+                return paletteInfo
+        else:
+            return None
+
+    def __findImageObject(self, oid):
+        for imageObject in self.imageObjects:
+            if imageObject['oid'] == oid:
+                return imageObject
+        else:
+            return None
 
     def __fixExoplayerPalette(self):
         paletteItems = len(self.__paletteByteData) // 5
@@ -984,7 +1032,7 @@ class SupRebuild:
 
         pos = self.__buildBufPosition
         self.__buildBuf[pos:pos+1] = b'\x00'             # only support one palette, pid = 0
-        self.__buildBuf[pos+1:pos+2] = self.paletteVer   # palette version
+        self.__buildBuf[pos+1:pos+2] = self.__paletteVer   # palette version
         self.__buildBuf[pos+2:pos+2+paletteSize] = self.__paletteByteData
         self.__buildBufPosition += paletteSize+2
 
@@ -1025,10 +1073,10 @@ class SupRebuild:
             self.bdnXmlInfo[bdnIdx]['endTime'] = self.bdnXmlInfo[bdnIdx]['startTime'] + 5000
             return
 
-        if self.imageObjectsCount > 0:
-            if compState != 'Epoch Start' and compState != 'Acquisition Point':
-                logging.warning("[SET-BDNXML-INFO segmet state != 'Epoch Start' or 'Acquisition Point' (%s)"
-                                % compState)
+        if self.compositionObjectCount > 0:
+            # if compState != 'Epoch Start' and compState != 'Acquisition Point':
+            #    logging.warning("[SET-BDNXML-INFO segmet state != 'Epoch Start' or 'Acquisition Point' (%s)"
+            #                    % compState)
 
             if bdnIdx and self.bdnXmlInfo[bdnIdx-1]['endTime'] is None:  # update last endTime if empty
                 self.bdnXmlInfo[bdnIdx-1]['endTime'] = self.pts
