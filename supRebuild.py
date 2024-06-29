@@ -3,7 +3,7 @@
 # Rebuild SUP file for compatibility with ExoPlayer versions prior to AndroidX Media 1.2.X
 # reference: ffmpeg ==> pgssubdec.c
 #
-# 2024/02/06 v-00.01.01
+# 2024/02/06 v-00.01.01, 2004/06/29 v-00.01.02
 # ===========================================================================================
 
 import os
@@ -327,11 +327,11 @@ class SupRebuild:
                     else:  # more than one data
                         rleDataPos = 0
                         for idx, rleDataSize in enumerate(imageObject['rleFragmentSize']):
-                            seqFlag = 0
+                            seqFlag = 0x40  # always as Last
                             if idx == 0:
                                 seqFlag = 0x80  # First
-                            if idx == NumberOfsplit-1:
-                                seqFlag = seqFlag | 0x40  # Last
+                            # if idx == NumberOfsplit-1:
+                            #    seqFlag = seqFlag | 0x40  # Last
                             rleData = imageObject['rleImageData'][rleDataPos:rleDataPos+rleDataSize]
                             self.__buildODS(seqFlag, imageObject['rleDataLength'], rleData, imageInfo)
                             rleDataPos += rleDataSize
@@ -348,6 +348,9 @@ class SupRebuild:
                         rleFragData = rleData[rleDataPos: rleDataPos+maxFragSize]
                         if rleDataPos == 0:
                             seqFlag = 0x80  # First
+                        else:
+                            seqFlag = 0x40  # Last  [First, Last, last, ....]
+
                         rleDataPos += maxFragSize
                         self.__buildODS(seqFlag, rleDataLength, rleFragData, imageInfo)
 
@@ -577,9 +580,9 @@ class SupRebuild:
 
         if self.fixExoplayerInfo['palette']:
             fixed += 1
-            print("\nFixing the subtitle color problem", end='')
-            if self.fixExoplayerInfo['alpha0AtEnd']:
-                print(" for 'ExoPlayer', but may cause 'PotPlayer' to display the color incorrectly !\n")
+            print("\n\nFixing the subtitle color problem", end='')
+            if self.fixExoplayerInfo['paletteExtend']:
+                print(", palette size extend !\n")
             else:
                 print(".\n")
 
@@ -594,7 +597,7 @@ class SupRebuild:
         self.fixExoplayerInfo = {
             'flashingInfo': [],
             'palette': 0,
-            'alpha0AtEnd': 0,
+            'paletteExtend': 0,
             'multiObjectInfo': []
         }
 
@@ -764,8 +767,9 @@ class SupRebuild:
         pos += 2
         buf = self.__buf
         paletteByteData = bytearray(buf[pos:pos+size-2])
-        palette = [[0, 0, 0, 0]] * 256
+        palette = [[0, 0, 0, 0]] * 256  # init data, alpha = 0
         for idx in range(size // 5):
+            # one entry have 5 data : [entryID, Y, Cr, Cb, Aplha]
             # buf[pos]: index of palette, buf[pos+1]: Y, buf[pos+2]: Cr, buf[pos+3]: Cb, buf[pos+4]: alpha
             pIndex = buf[pos]
             if idx != pIndex:
@@ -863,10 +867,11 @@ class SupRebuild:
         imageObject['rleImageData'] += self.__buf[self.__bufPosition:self.__bufPosition+size]
         self.__bufPosition += size
 
-        if flag == 0x40 and len(imageObject['rleImageData']) != rleDataLength:  # Last fragment
-            logging.error("[ODS%d] Invalid object data size  flag=0x%0X rle=%d image data size = %d !" %
-                          (self.imageObjectsCount, flag, rleDataLength, len(imageObject['rleImageData'])))
-            return 0
+        # No need to check for the last flag, there could be many. ('First', 'last', 'last' ...)
+        # if flag == 0x40 and len(imageObject['rleImageData']) != rleDataLength:  # Last fragment
+        #    logging.error("[ODS%d] Invalid object data size  flag=0x%0X rle=%d image data size = %d !" %
+        #                  (self.imageObjectsCount, flag, rleDataLength, len(imageObject['rleImageData'])))
+        #    return 0
 
         self.__odsCount += 1
         return 1
@@ -905,6 +910,7 @@ class SupRebuild:
         lowestAlphaValue = 256
         entry0Idx = -1
         needFix = 0
+        # [entryIdx, Y, Cr, Cb, Alpha]
         for itemIdx in range(paletteItems):
             alphaValue = self.__paletteByteData[itemIdx*5+4]
             if alphaValue < lowestAlphaValue:  # find the lowest alpha value
@@ -915,44 +921,29 @@ class SupRebuild:
                 if self.__paletteByteData[itemIdx*5+4] != 0:  # if alpha of entry0 != 0 (transparent)
                     needFix = 1
         if needFix:
-            self.fixExoplayerInfo['palette'] += 1
             if lowestAlphaValue > 0:  # no transparent entry
                 if paletteItems >= 256:  # no more entry for add transparent entry
                     logging.warning("[FIX-PALETTE] No entry for fix transparent problem !")
                     return 0, -1, -1  # need fix, but can not fix
                 else:
-                    # if paletteItems = 255 and just only swap [entry0Idx] with [alpha0Idx (paletteItems)]
-                    # the 'PotPlayer' will assume [255] always transparent
-                    #
-                    #  [entry0Idx]  => [lowestAlphaIdx] ==> [alpha0Idx] ==> [entry0Idx]
-                    alpha0Idx = paletteItems
-                    logging.debug("[Palette-Rotate] entry0[%d](%d) ==> lowAlpha[%d](%d) ==> alpha0[%d](%d)"
-                                  % (entry0Idx, self.__paletteByteData[entry0Idx*5+4],
-                                     lowestAlphaIdx, self.__paletteByteData[lowestAlphaIdx*5+4], alpha0Idx, 0))
-                    # move the lowest value to new position ([paletteItems])
-                    self.__paletteByteData += paletteItems.to_bytes(1, 'big') \
-                        + self.__paletteByteData[lowestAlphaIdx*5+1:lowestAlphaIdx*5+5]
+                    # No aplha = 0 entry, increase palette size by 1 entry for Alpha0
+                    # New palette entry: [entryID, Y, Cr, Cb, Aplha] = [ paletteItems, 0, 0, 0, 0 ]
+                    lowestAlphaIdx = paletteItems  # new entry
+                    self.__paletteByteData.append(lowestAlphaIdx)
+                    self.__paletteByteData.extend(b'\x00\x00\x00\x00')
+                    self.fixExoplayerInfo['paletteExtend'] += 1
 
-                    # move entry0 value to [lowestAlphaIdx]
-                    self.__paletteByteData[lowestAlphaIdx*5+1:lowestAlphaIdx*5+5] =  \
-                        self.__paletteByteData[entry0Idx*5+1:entry0Idx*5+5]
+            self.fixExoplayerInfo['palette'] += 1
+            # lowestAlphaIdx equal to alpha0Idx
+            logging.debug("[Palette-Swap] entry0[%d]:%d <==> Alpha0[%d]:%d"
+                          % (entry0Idx, self.__paletteByteData[entry0Idx * 5 + 4],
+                             lowestAlphaIdx, self.__paletteByteData[lowestAlphaIdx * 5 + 4]))
+            entry0IdxNewValue = self.__paletteByteData[lowestAlphaIdx*5+1:lowestAlphaIdx*5+5]
+            alpha0IdxNewValue = self.__paletteByteData[entry0Idx*5+1:entry0Idx*5+5]
+            self.__paletteByteData[entry0Idx*5+1:entry0Idx*5+5] = entry0IdxNewValue
+            self.__paletteByteData[lowestAlphaIdx*5+1:lowestAlphaIdx*5+5] = alpha0IdxNewValue
 
-                    # entry0 set as transparent
-                    self.__paletteByteData[entry0Idx*5+1:entry0Idx*5+5] = b'\x00\x00\x00\x00'
-
-                    self.fixExoplayerInfo['alpha0AtEnd'] = 1
-                    return 1, alpha0Idx, entry0Idx, lowestAlphaIdx
-            else:
-                # lowestAlphaIdx equal to alpha0Idx
-                logging.debug("[Palette-Swap] entry0[%d](%d) <==> Alpha0[%d](%d)"
-                              % (entry0Idx, self.__paletteByteData[entry0Idx * 5 + 4],
-                                 lowestAlphaIdx, self.__paletteByteData[lowestAlphaIdx * 5 + 4]))
-                entry0IdxNewValue = self.__paletteByteData[lowestAlphaIdx*5+1:lowestAlphaIdx*5+5]
-                alpha0IdxNewValue = self.__paletteByteData[entry0Idx*5+1:entry0Idx*5+5]
-                self.__paletteByteData[entry0Idx*5+1:entry0Idx*5+5] = entry0IdxNewValue
-                self.__paletteByteData[lowestAlphaIdx*5+1:lowestAlphaIdx*5+5] = alpha0IdxNewValue
-
-                return 1, lowestAlphaIdx, entry0Idx, None
+            return 1, lowestAlphaIdx, entry0Idx, None
 
         return 0, None, None, None
 

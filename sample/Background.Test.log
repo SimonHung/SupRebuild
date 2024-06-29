@@ -1,0 +1,220 @@
+DEBUG [PG]= 00:00:00.120-size:0x0013-pos:0x000000 ------
+DEBUG [PCS]- 0 - Epoch Start--- 1920x1080 - frameRate=48 ------
+DEBUG [PCS-OBJ] oid:0, x:956, y:845
+DEBUG [PG]= 00:00:00.119-size:0x000A-pos:0x000020 ------
+DEBUG [WDS]---------------------------------------------
+DEBUG [WDS] wid:0, x:956, y:845, 8*18 ----------------
+DEBUG [PG]= 00:00:00.055-size:0x0007-pos:0x000037 ------
+DEBUG [PDS]-------
+DEBUG [PG]= 00:00:00.055-size:0x0053-pos:0x00004B ------
+DEBUG [ODS]- ver:0 - First and last ------
+DEBUG [ODS-OBJ] oid:0, 8*18
+DEBUG [PG]= 00:00:00.055-size:0x0000-pos:0x0000AB ------
+DEBUG [END]= IMAGE COUNT = 0001, OBJS = 01 =============================
+DEBUG [Palette-Swap] entry0[0]:255 <==> Alpha0[1]:0
+DEBUG [PG]= 00:00:00.520-size:0x000B-pos:0x0000B8 ------
+DEBUG [PCS]- 1 - Normal--- 1920x1080 - frameRate=48 ------
+DEBUG [PG]= 00:00:00.519-size:0x000A-pos:0x0000D0 ------
+DEBUG [WDS]---------------------------------------------
+DEBUG [WDS] wid:0, x:956, y:845, 8*18 ----------------
+DEBUG [PG]= 00:00:00.519-size:0x0000-pos:0x0000E7 ------
+DEBUG [END]= NO IMAGE ==================================================
+DEBUG [PG]= 00:00:00.520-size:0x0013-pos:0x0000F4 ------
+DEBUG [PCS]- 2 - Epoch Start--- 1920x1080 - frameRate=48 ------
+DEBUG [PCS-OBJ] oid:0, x:360, y:140
+DEBUG [PG]= 00:00:00.490-size:0x000A-pos:0x000114 ------
+DEBUG [WDS]---------------------------------------------
+DEBUG [WDS] wid:0, x:360, y:140, 1200*800 ----------------
+DEBUG [PG]= 00:00:00.425-size:0x0151-pos:0x00012B ------
+DEBUG [PDS]-------
+DEBUG [PG]= 00:00:00.485-size:0x55C7-pos:0x000289 ------
+DEBUG [ODS]- ver:0 - First and last ------
+DEBUG [ODS-OBJ] oid:0, 1200*800
+DEBUG [PG]= 00:00:00.485-size:0x0000-pos:0x00585D ------
+DEBUG [END]= IMAGE COUNT = 0002, OBJS = 01 =============================
+DEBUG [Palette-Swap] entry0[0]:255 <==> Alpha0[67]:0
+DEBUG [PG]= 00:00:03.520-size:0x000B-pos:0x00586A ------
+DEBUG [PCS]- 3 - Normal--- 1920x1080 - frameRate=48 ------
+DEBUG [PG]= 00:00:03.490-size:0x000A-pos:0x005882 ------
+DEBUG [WDS]---------------------------------------------
+DEBUG [WDS] wid:0, x:360, y:140, 1200*800 ----------------
+DEBUG [PG]= 00:00:03.490-size:0x0000-pos:0x005899 ------
+DEBUG [END]= NO IMAGE ==================================================
+DEBUG [PG]= 00:00:03.800-size:0x0013-pos:0x0058A6 ------
+DEBUG [PCS]- 4 - Epoch Start--- 1920x1080 - frameRate=48 ------
+DEBUG [PCS-OBJ] oid:0, x:501, y:496
+DEBUG [PG]= 00:00:03.797-size:0x000A-pos:0x0058C6 ------
+DEBUG [WDS]---------------------------------------------
+DEBUG [WDS] wid:0, x:501, y:496, 918*88 ----------------
+DEBUG [PG]= 00:00:03.732-size:0x0124-pos:0x0058DD ------
+DEBUG [PDS]-------
+DEBUG [PG]= 00:00:03.737-size:0x6836-pos:0x005A0E ------
+DEBUG [ODS]- ver:0 - First and last ------
+DEBUG [ODS-OBJ] oid:0, 918*88
+DEBUG [PG]= 00:00:03.737-size:0x0000-pos:0x00C251 ------
+DEBUG [END]= IMAGE COUNT = 0003, OBJS = 01 =============================
+DEBUG [Palette-Swap] entry0[0]:255 <==> Alpha0[58]:0
+DEBUG [PG]= 00:00:06.800-size:0x000B-pos:0x00C25E ------
+DEBUG [PCS]- 5 - Normal--- 1920x1080 - frameRate=48 ------
+DEBUG [PG]= 00:00:06.797-size:0x000A-pos:0x00C276 ------
+DEBUG [WDS]---------------------------------------------
+DEBUG [WDS] wid:0, x:501, y:496, 918*88 ----------------
+DEBUG [PG]= 00:00:06.797-size:0x0000-pos:0x00C28D ------
+DEBUG [END]= NO IMAGE ==================================================
+DEBUG [PG]= 00:00:07.000-size:0x0013-pos:0x00C29A ------
+DEBUG [PCS]- 6 - Epoch Start--- 1920x1080 - frameRate=48 ------
+DEBUG [PCS-OBJ] oid:0, x:522, y:496
+DEBUG [PG]= 00:00:06.997-size:0x000A-pos:0x00C2BA ------
+DEBUG [WDS]---------------------------------------------
+DEBUG [WDS] wid:0, x:522, y:496, 876*88 ----------------
+DEBUG [PG]= 00:00:06.932-size:0x026E-pos:0x00C2D1 ------
+DEBUG [PDS]-------
+DEBUG [PG]= 00:00:06.937-size:0x63FE-pos:0x00C54C ------
+DEBUG [ODS]- ver:0 - First and last ------
+DEBUG [ODS-OBJ] oid:0, 876*88
+DEBUG [PG]= 00:00:06.937-size:0x0000-pos:0x012957 ------
+DEBUG [END]= IMAGE COUNT = 0004, OBJS = 01 =============================
+DEBUG [Palette-Swap] entry0[0]:255 <==> Alpha0[124]:0
+DEBUG [PG]= 00:00:10.000-size:0x000B-pos:0x012964 ------
+DEBUG [PCS]- 7 - Normal--- 1920x1080 - frameRate=48 ------
+DEBUG [PG]= 00:00:09.997-size:0x000A-pos:0x01297C ------
+DEBUG [WDS]---------------------------------------------
+DEBUG [WDS] wid:0, x:522, y:496, 876*88 ----------------
+DEBUG [PG]= 00:00:09.997-size:0x0000-pos:0x012993 ------
+DEBUG [END]= NO IMAGE ==================================================
+DEBUG [PG]= 00:00:10.200-size:0x0013-pos:0x0129A0 ------
+DEBUG [PCS]- 8 - Epoch Start--- 1920x1080 - frameRate=48 ------
+DEBUG [PCS-OBJ] oid:0, x:544, y:496
+DEBUG [PG]= 00:00:10.197-size:0x000A-pos:0x0129C0 ------
+DEBUG [WDS]---------------------------------------------
+DEBUG [WDS] wid:0, x:544, y:496, 832*88 ----------------
+DEBUG [PG]= 00:00:10.132-size:0x026E-pos:0x0129D7 ------
+DEBUG [PDS]-------
+DEBUG [PG]= 00:00:10.137-size:0x5FD5-pos:0x012C52 ------
+DEBUG [ODS]- ver:0 - First and last ------
+DEBUG [ODS-OBJ] oid:0, 832*88
+DEBUG [PG]= 00:00:10.137-size:0x0000-pos:0x018C34 ------
+DEBUG [END]= IMAGE COUNT = 0005, OBJS = 01 =============================
+DEBUG [Palette-Swap] entry0[0]:255 <==> Alpha0[124]:0
+DEBUG [PG]= 00:00:13.200-size:0x000B-pos:0x018C41 ------
+DEBUG [PCS]- 9 - Normal--- 1920x1080 - frameRate=48 ------
+DEBUG [PG]= 00:00:13.197-size:0x000A-pos:0x018C59 ------
+DEBUG [WDS]---------------------------------------------
+DEBUG [WDS] wid:0, x:544, y:496, 832*88 ----------------
+DEBUG [PG]= 00:00:13.197-size:0x0000-pos:0x018C70 ------
+DEBUG [END]= NO IMAGE ==================================================
+DEBUG [PG]= 00:00:13.400-size:0x0013-pos:0x018C7D ------
+DEBUG [PCS]- 10 - Epoch Start--- 1920x1080 - frameRate=48 ------
+DEBUG [PCS-OBJ] oid:0, x:479, y:496
+DEBUG [PG]= 00:00:13.397-size:0x000A-pos:0x018C9D ------
+DEBUG [WDS]---------------------------------------------
+DEBUG [WDS] wid:0, x:479, y:496, 962*88 ----------------
+DEBUG [PG]= 00:00:13.332-size:0x026E-pos:0x018CB4 ------
+DEBUG [PDS]-------
+DEBUG [PG]= 00:00:13.337-size:0x6E2E-pos:0x018F2F ------
+DEBUG [ODS]- ver:0 - First and last ------
+DEBUG [ODS-OBJ] oid:0, 962*88
+DEBUG [PG]= 00:00:13.337-size:0x0000-pos:0x01FD6A ------
+DEBUG [END]= IMAGE COUNT = 0006, OBJS = 01 =============================
+DEBUG [Palette-Swap] entry0[0]:255 <==> Alpha0[124]:0
+DEBUG [PG]= 00:00:16.400-size:0x000B-pos:0x01FD77 ------
+DEBUG [PCS]- 11 - Normal--- 1920x1080 - frameRate=48 ------
+DEBUG [PG]= 00:00:16.397-size:0x000A-pos:0x01FD8F ------
+DEBUG [WDS]---------------------------------------------
+DEBUG [WDS] wid:0, x:479, y:496, 962*88 ----------------
+DEBUG [PG]= 00:00:16.397-size:0x0000-pos:0x01FDA6 ------
+DEBUG [END]= NO IMAGE ==================================================
+DEBUG [PG]= 00:00:16.600-size:0x0013-pos:0x01FDB3 ------
+DEBUG [PCS]- 12 - Epoch Start--- 1920x1080 - frameRate=48 ------
+DEBUG [PCS-OBJ] oid:0, x:479, y:496
+DEBUG [PG]= 00:00:16.597-size:0x000A-pos:0x01FDD3 ------
+DEBUG [WDS]---------------------------------------------
+DEBUG [WDS] wid:0, x:479, y:496, 962*88 ----------------
+DEBUG [PG]= 00:00:16.532-size:0x01D3-pos:0x01FDEA ------
+DEBUG [PDS]-------
+DEBUG [PG]= 00:00:16.537-size:0x6DF0-pos:0x01FFCA ------
+DEBUG [ODS]- ver:0 - First and last ------
+DEBUG [ODS-OBJ] oid:0, 962*88
+DEBUG [PG]= 00:00:16.537-size:0x0000-pos:0x026DC7 ------
+DEBUG [END]= IMAGE COUNT = 0007, OBJS = 01 =============================
+DEBUG [Palette-Swap] entry0[0]:255 <==> Alpha0[93]:0
+DEBUG [PG]= 00:00:19.600-size:0x000B-pos:0x026DD4 ------
+DEBUG [PCS]- 13 - Normal--- 1920x1080 - frameRate=48 ------
+DEBUG [PG]= 00:00:19.597-size:0x000A-pos:0x026DEC ------
+DEBUG [WDS]---------------------------------------------
+DEBUG [WDS] wid:0, x:479, y:496, 962*88 ----------------
+DEBUG [PG]= 00:00:19.597-size:0x0000-pos:0x026E03 ------
+DEBUG [END]= NO IMAGE ==================================================
+DEBUG [PG]= 00:00:19.800-size:0x0013-pos:0x026E10 ------
+DEBUG [PCS]- 14 - Epoch Start--- 1920x1080 - frameRate=48 ------
+DEBUG [PCS-OBJ] oid:0, x:522, y:496
+DEBUG [PG]= 00:00:19.797-size:0x000A-pos:0x026E30 ------
+DEBUG [WDS]---------------------------------------------
+DEBUG [WDS] wid:0, x:522, y:496, 876*88 ----------------
+DEBUG [PG]= 00:00:19.732-size:0x01D3-pos:0x026E47 ------
+DEBUG [PDS]-------
+DEBUG [PG]= 00:00:19.737-size:0x68C8-pos:0x027027 ------
+DEBUG [ODS]- ver:0 - First and last ------
+DEBUG [ODS-OBJ] oid:0, 876*88
+DEBUG [PG]= 00:00:19.737-size:0x0000-pos:0x02D8FC ------
+DEBUG [END]= IMAGE COUNT = 0008, OBJS = 01 =============================
+DEBUG [Palette-Swap] entry0[0]:255 <==> Alpha0[93]:0
+DEBUG [PG]= 00:00:22.800-size:0x000B-pos:0x02D909 ------
+DEBUG [PCS]- 15 - Normal--- 1920x1080 - frameRate=48 ------
+DEBUG [PG]= 00:00:22.797-size:0x000A-pos:0x02D921 ------
+DEBUG [WDS]---------------------------------------------
+DEBUG [WDS] wid:0, x:522, y:496, 876*88 ----------------
+DEBUG [PG]= 00:00:22.797-size:0x0000-pos:0x02D938 ------
+DEBUG [END]= NO IMAGE ==================================================
+DEBUG [PG]= 00:00:23.000-size:0x0013-pos:0x02D945 ------
+DEBUG [PCS]- 16 - Epoch Start--- 1920x1080 - frameRate=48 ------
+DEBUG [PCS-OBJ] oid:0, x:522, y:496
+DEBUG [PG]= 00:00:22.997-size:0x000A-pos:0x02D965 ------
+DEBUG [WDS]---------------------------------------------
+DEBUG [WDS] wid:0, x:522, y:496, 876*88 ----------------
+DEBUG [PG]= 00:00:22.932-size:0x026E-pos:0x02D97C ------
+DEBUG [PDS]-------
+DEBUG [PG]= 00:00:22.937-size:0x6921-pos:0x02DBF7 ------
+DEBUG [ODS]- ver:0 - First and last ------
+DEBUG [ODS-OBJ] oid:0, 876*88
+DEBUG [PG]= 00:00:22.937-size:0x0000-pos:0x034525 ------
+DEBUG [END]= IMAGE COUNT = 0009, OBJS = 01 =============================
+DEBUG [Palette-Swap] entry0[0]:255 <==> Alpha0[124]:0
+DEBUG [PG]= 00:00:26.000-size:0x000B-pos:0x034532 ------
+DEBUG [PCS]- 17 - Normal--- 1920x1080 - frameRate=48 ------
+DEBUG [PG]= 00:00:25.997-size:0x000A-pos:0x03454A ------
+DEBUG [WDS]---------------------------------------------
+DEBUG [WDS] wid:0, x:522, y:496, 876*88 ----------------
+DEBUG [PG]= 00:00:25.997-size:0x0000-pos:0x034561 ------
+DEBUG [END]= NO IMAGE ==================================================
+DEBUG [PG]= 00:00:26.320-size:0x0013-pos:0x03456E ------
+DEBUG [PCS]- 18 - Epoch Start--- 1920x1080 - frameRate=48 ------
+DEBUG [PCS-OBJ] oid:0, x:360, y:140
+DEBUG [PG]= 00:00:26.290-size:0x000A-pos:0x03458E ------
+DEBUG [WDS]---------------------------------------------
+DEBUG [WDS] wid:0, x:360, y:140, 1200*800 ----------------
+DEBUG [PG]= 00:00:26.225-size:0x0151-pos:0x0345A5 ------
+DEBUG [PDS]-------
+DEBUG [PG]= 00:00:26.285-size:0x5285-pos:0x034703 ------
+DEBUG [ODS]- ver:0 - First and last ------
+DEBUG [ODS-OBJ] oid:0, 1200*800
+DEBUG [PG]= 00:00:26.285-size:0x0000-pos:0x039995 ------
+DEBUG [END]= IMAGE COUNT = 0010, OBJS = 01 =============================
+DEBUG [Palette-Swap] entry0[0]:255 <==> Alpha0[67]:0
+DEBUG [PG]= 00:00:29.320-size:0x000B-pos:0x0399A2 ------
+DEBUG [PCS]- 19 - Normal--- 1920x1080 - frameRate=48 ------
+DEBUG [PG]= 00:00:29.290-size:0x000A-pos:0x0399BA ------
+DEBUG [WDS]---------------------------------------------
+DEBUG [WDS] wid:0, x:360, y:140, 1200*800 ----------------
+DEBUG [PG]= 00:00:29.290-size:0x0000-pos:0x0399D1 ------
+DEBUG [END]= NO IMAGE ==================================================
+DEBUG [PARSER-END] SUP file parsing completed.
+
+Fixing subtitle flashing at:
+    [2] 00:00:00.520,
+
+Fixing the subtitle color problem, palette size extend !
+
+
+Create new sup file: D:\Downloads\bitDownload\DownloadFinish\2024.芙莉歐莎：瘋狂麥斯傳奇篇章.輔15 (OK)\BACKGROUND.TEST.mod.sup (252,323 bytes)
+Elapsed time: 0.72s

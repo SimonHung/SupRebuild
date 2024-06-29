@@ -1,0 +1,197 @@
+DEBUG [PG]= 00:00:00.120-size:0x0013-pos:0x000000 ------
+DEBUG [PCS]- 0 - Epoch Start--- 1920x1080 - frameRate=48 ------
+DEBUG [PCS-OBJ] oid:0, x:956, y:845
+DEBUG [PG]= 00:00:00.120-size:0x000A-pos:0x000020 ------
+DEBUG [WDS]---------------------------------------------
+DEBUG [WDS] wid:0, x:956, y:845, 8*18 ----------------
+DEBUG [PG]= 00:00:00.120-size:0x000C-pos:0x000037 ------
+DEBUG [PDS]-------
+DEBUG [PG]= 00:00:00.120-size:0x0065-pos:0x000050 ------
+DEBUG [ODS]- ver:0 - First and last ------
+DEBUG [ODS-OBJ] oid:0, 8*18
+DEBUG [PG]= 00:00:00.120-size:0x0000-pos:0x0000C2 ------
+DEBUG [END]= IMAGE COUNT = 0001, OBJS = 01 =============================
+DEBUG [PG]= 00:00:00.520-size:0x0013-pos:0x0000CF ------
+DEBUG [PCS]- 1 - Acquisition Point--- 1920x1080 - frameRate=48 ------
+DEBUG [PCS-OBJ] oid:0, x:360, y:140
+DEBUG [PG]= 00:00:00.520-size:0x000A-pos:0x0000EF ------
+DEBUG [WDS]---------------------------------------------
+DEBUG [WDS] wid:0, x:360, y:140, 1200*800 ----------------
+DEBUG [PG]= 00:00:00.520-size:0x0156-pos:0x000106 ------
+DEBUG [PDS]-------
+DEBUG [PG]= 00:00:00.520-size:0x616A-pos:0x000269 ------
+DEBUG [ODS]- ver:0 - First and last ------
+DEBUG [ODS-OBJ] oid:0, 1200*800
+DEBUG [PG]= 00:00:00.520-size:0x0000-pos:0x0063E0 ------
+DEBUG [END]= IMAGE COUNT = 0002, OBJS = 01 =============================
+DEBUG [PG]= 00:00:03.520-size:0x000B-pos:0x0063ED ------
+DEBUG [PCS]- 2 - Normal--- 1920x1080 - frameRate=48 ------
+DEBUG [PG]= 00:00:03.520-size:0x000A-pos:0x006405 ------
+DEBUG [WDS]---------------------------------------------
+DEBUG [WDS] wid:0, x:360, y:140, 1200*800 ----------------
+DEBUG [PG]= 00:00:03.520-size:0x0000-pos:0x00641C ------
+DEBUG [END]= NO IMAGE ==================================================
+DEBUG [PG]= 00:00:03.800-size:0x0013-pos:0x006429 ------
+DEBUG [PCS]- 3 - Epoch Start--- 1920x1080 - frameRate=48 ------
+DEBUG [PCS-OBJ] oid:0, x:501, y:496
+DEBUG [PG]= 00:00:03.800-size:0x000A-pos:0x006449 ------
+DEBUG [WDS]---------------------------------------------
+DEBUG [WDS] wid:0, x:501, y:496, 918*88 ----------------
+DEBUG [PG]= 00:00:03.800-size:0x0129-pos:0x006460 ------
+DEBUG [PDS]-------
+DEBUG [PG]= 00:00:03.800-size:0x6E0D-pos:0x006596 ------
+DEBUG [ODS]- ver:0 - First and last ------
+DEBUG [ODS-OBJ] oid:0, 918*88
+DEBUG [PG]= 00:00:03.800-size:0x0000-pos:0x00D3B0 ------
+DEBUG [END]= IMAGE COUNT = 0003, OBJS = 01 =============================
+DEBUG [PG]= 00:00:06.800-size:0x000B-pos:0x00D3BD ------
+DEBUG [PCS]- 4 - Normal--- 1920x1080 - frameRate=48 ------
+DEBUG [PG]= 00:00:06.800-size:0x000A-pos:0x00D3D5 ------
+DEBUG [WDS]---------------------------------------------
+DEBUG [WDS] wid:0, x:501, y:496, 918*88 ----------------
+DEBUG [PG]= 00:00:06.800-size:0x0000-pos:0x00D3EC ------
+DEBUG [END]= NO IMAGE ==================================================
+DEBUG [PG]= 00:00:07.000-size:0x0013-pos:0x00D3F9 ------
+DEBUG [PCS]- 5 - Epoch Start--- 1920x1080 - frameRate=48 ------
+DEBUG [PCS-OBJ] oid:0, x:522, y:496
+DEBUG [PG]= 00:00:07.000-size:0x000A-pos:0x00D419 ------
+DEBUG [WDS]---------------------------------------------
+DEBUG [WDS] wid:0, x:522, y:496, 876*88 ----------------
+DEBUG [PG]= 00:00:07.000-size:0x0273-pos:0x00D430 ------
+DEBUG [PDS]-------
+DEBUG [PG]= 00:00:07.000-size:0x69A9-pos:0x00D6B0 ------
+DEBUG [ODS]- ver:0 - First and last ------
+DEBUG [ODS-OBJ] oid:0, 876*88
+DEBUG [PG]= 00:00:07.000-size:0x0000-pos:0x014066 ------
+DEBUG [END]= IMAGE COUNT = 0004, OBJS = 01 =============================
+DEBUG [PG]= 00:00:10.000-size:0x000B-pos:0x014073 ------
+DEBUG [PCS]- 6 - Normal--- 1920x1080 - frameRate=48 ------
+DEBUG [PG]= 00:00:10.000-size:0x000A-pos:0x01408B ------
+DEBUG [WDS]---------------------------------------------
+DEBUG [WDS] wid:0, x:522, y:496, 876*88 ----------------
+DEBUG [PG]= 00:00:10.000-size:0x0000-pos:0x0140A2 ------
+DEBUG [END]= NO IMAGE ==================================================
+DEBUG [PG]= 00:00:10.200-size:0x0013-pos:0x0140AF ------
+DEBUG [PCS]- 7 - Epoch Start--- 1920x1080 - frameRate=48 ------
+DEBUG [PCS-OBJ] oid:0, x:544, y:496
+DEBUG [PG]= 00:00:10.200-size:0x000A-pos:0x0140CF ------
+DEBUG [WDS]---------------------------------------------
+DEBUG [WDS] wid:0, x:544, y:496, 832*88 ----------------
+DEBUG [PG]= 00:00:10.200-size:0x0273-pos:0x0140E6 ------
+DEBUG [PDS]-------
+DEBUG [PG]= 00:00:10.200-size:0x6568-pos:0x014366 ------
+DEBUG [ODS]- ver:0 - First and last ------
+DEBUG [ODS-OBJ] oid:0, 832*88
+DEBUG [PG]= 00:00:10.200-size:0x0000-pos:0x01A8DB ------
+DEBUG [END]= IMAGE COUNT = 0005, OBJS = 01 =============================
+DEBUG [PG]= 00:00:13.200-size:0x000B-pos:0x01A8E8 ------
+DEBUG [PCS]- 8 - Normal--- 1920x1080 - frameRate=48 ------
+DEBUG [PG]= 00:00:13.200-size:0x000A-pos:0x01A900 ------
+DEBUG [WDS]---------------------------------------------
+DEBUG [WDS] wid:0, x:544, y:496, 832*88 ----------------
+DEBUG [PG]= 00:00:13.200-size:0x0000-pos:0x01A917 ------
+DEBUG [END]= NO IMAGE ==================================================
+DEBUG [PG]= 00:00:13.400-size:0x0013-pos:0x01A924 ------
+DEBUG [PCS]- 9 - Epoch Start--- 1920x1080 - frameRate=48 ------
+DEBUG [PCS-OBJ] oid:0, x:479, y:496
+DEBUG [PG]= 00:00:13.400-size:0x000A-pos:0x01A944 ------
+DEBUG [WDS]---------------------------------------------
+DEBUG [WDS] wid:0, x:479, y:496, 962*88 ----------------
+DEBUG [PG]= 00:00:13.400-size:0x0273-pos:0x01A95B ------
+DEBUG [PDS]-------
+DEBUG [PG]= 00:00:13.400-size:0x7435-pos:0x01ABDB ------
+DEBUG [ODS]- ver:0 - First and last ------
+DEBUG [ODS-OBJ] oid:0, 962*88
+DEBUG [PG]= 00:00:13.400-size:0x0000-pos:0x02201D ------
+DEBUG [END]= IMAGE COUNT = 0006, OBJS = 01 =============================
+DEBUG [PG]= 00:00:16.400-size:0x000B-pos:0x02202A ------
+DEBUG [PCS]- 10 - Normal--- 1920x1080 - frameRate=48 ------
+DEBUG [PG]= 00:00:16.400-size:0x000A-pos:0x022042 ------
+DEBUG [WDS]---------------------------------------------
+DEBUG [WDS] wid:0, x:479, y:496, 962*88 ----------------
+DEBUG [PG]= 00:00:16.400-size:0x0000-pos:0x022059 ------
+DEBUG [END]= NO IMAGE ==================================================
+DEBUG [PG]= 00:00:16.600-size:0x0013-pos:0x022066 ------
+DEBUG [PCS]- 11 - Epoch Start--- 1920x1080 - frameRate=48 ------
+DEBUG [PCS-OBJ] oid:0, x:479, y:496
+DEBUG [PG]= 00:00:16.600-size:0x000A-pos:0x022086 ------
+DEBUG [WDS]---------------------------------------------
+DEBUG [WDS] wid:0, x:479, y:496, 962*88 ----------------
+DEBUG [PG]= 00:00:16.600-size:0x01D8-pos:0x02209D ------
+DEBUG [PDS]-------
+DEBUG [PG]= 00:00:16.600-size:0x73C5-pos:0x022282 ------
+DEBUG [ODS]- ver:0 - First and last ------
+DEBUG [ODS-OBJ] oid:0, 962*88
+DEBUG [PG]= 00:00:16.600-size:0x0000-pos:0x029654 ------
+DEBUG [END]= IMAGE COUNT = 0007, OBJS = 01 =============================
+DEBUG [PG]= 00:00:19.600-size:0x000B-pos:0x029661 ------
+DEBUG [PCS]- 12 - Normal--- 1920x1080 - frameRate=48 ------
+DEBUG [PG]= 00:00:19.600-size:0x000A-pos:0x029679 ------
+DEBUG [WDS]---------------------------------------------
+DEBUG [WDS] wid:0, x:479, y:496, 962*88 ----------------
+DEBUG [PG]= 00:00:19.600-size:0x0000-pos:0x029690 ------
+DEBUG [END]= NO IMAGE ==================================================
+DEBUG [PG]= 00:00:19.800-size:0x0013-pos:0x02969D ------
+DEBUG [PCS]- 13 - Epoch Start--- 1920x1080 - frameRate=48 ------
+DEBUG [PCS-OBJ] oid:0, x:522, y:496
+DEBUG [PG]= 00:00:19.800-size:0x000A-pos:0x0296BD ------
+DEBUG [WDS]---------------------------------------------
+DEBUG [WDS] wid:0, x:522, y:496, 876*88 ----------------
+DEBUG [PG]= 00:00:19.800-size:0x01D8-pos:0x0296D4 ------
+DEBUG [PDS]-------
+DEBUG [PG]= 00:00:19.800-size:0x6EC4-pos:0x0298B9 ------
+DEBUG [ODS]- ver:0 - First and last ------
+DEBUG [ODS-OBJ] oid:0, 876*88
+DEBUG [PG]= 00:00:19.800-size:0x0000-pos:0x03078A ------
+DEBUG [END]= IMAGE COUNT = 0008, OBJS = 01 =============================
+DEBUG [PG]= 00:00:22.800-size:0x000B-pos:0x030797 ------
+DEBUG [PCS]- 14 - Normal--- 1920x1080 - frameRate=48 ------
+DEBUG [PG]= 00:00:22.800-size:0x000A-pos:0x0307AF ------
+DEBUG [WDS]---------------------------------------------
+DEBUG [WDS] wid:0, x:522, y:496, 876*88 ----------------
+DEBUG [PG]= 00:00:22.800-size:0x0000-pos:0x0307C6 ------
+DEBUG [END]= NO IMAGE ==================================================
+DEBUG [PG]= 00:00:23.000-size:0x0013-pos:0x0307D3 ------
+DEBUG [PCS]- 15 - Epoch Start--- 1920x1080 - frameRate=48 ------
+DEBUG [PCS-OBJ] oid:0, x:522, y:496
+DEBUG [PG]= 00:00:23.000-size:0x000A-pos:0x0307F3 ------
+DEBUG [WDS]---------------------------------------------
+DEBUG [WDS] wid:0, x:522, y:496, 876*88 ----------------
+DEBUG [PG]= 00:00:23.000-size:0x0273-pos:0x03080A ------
+DEBUG [PDS]-------
+DEBUG [PG]= 00:00:23.000-size:0x6F1F-pos:0x030A8A ------
+DEBUG [ODS]- ver:0 - First and last ------
+DEBUG [ODS-OBJ] oid:0, 876*88
+DEBUG [PG]= 00:00:23.000-size:0x0000-pos:0x0379B6 ------
+DEBUG [END]= IMAGE COUNT = 0009, OBJS = 01 =============================
+DEBUG [PG]= 00:00:26.000-size:0x000B-pos:0x0379C3 ------
+DEBUG [PCS]- 16 - Normal--- 1920x1080 - frameRate=48 ------
+DEBUG [PG]= 00:00:26.000-size:0x000A-pos:0x0379DB ------
+DEBUG [WDS]---------------------------------------------
+DEBUG [WDS] wid:0, x:522, y:496, 876*88 ----------------
+DEBUG [PG]= 00:00:26.000-size:0x0000-pos:0x0379F2 ------
+DEBUG [END]= NO IMAGE ==================================================
+DEBUG [PG]= 00:00:26.320-size:0x0013-pos:0x0379FF ------
+DEBUG [PCS]- 17 - Epoch Start--- 1920x1080 - frameRate=48 ------
+DEBUG [PCS-OBJ] oid:0, x:360, y:140
+DEBUG [PG]= 00:00:26.320-size:0x000A-pos:0x037A1F ------
+DEBUG [WDS]---------------------------------------------
+DEBUG [WDS] wid:0, x:360, y:140, 1200*800 ----------------
+DEBUG [PG]= 00:00:26.320-size:0x0156-pos:0x037A36 ------
+DEBUG [PDS]-------
+DEBUG [PG]= 00:00:26.320-size:0x5DB4-pos:0x037B99 ------
+DEBUG [ODS]- ver:0 - First and last ------
+DEBUG [ODS-OBJ] oid:0, 1200*800
+DEBUG [PG]= 00:00:26.320-size:0x0000-pos:0x03D95A ------
+DEBUG [END]= IMAGE COUNT = 0010, OBJS = 01 =============================
+DEBUG [PG]= 00:00:29.320-size:0x000B-pos:0x03D967 ------
+DEBUG [PCS]- 18 - Normal--- 1920x1080 - frameRate=48 ------
+DEBUG [PG]= 00:00:29.320-size:0x000A-pos:0x03D97F ------
+DEBUG [WDS]---------------------------------------------
+DEBUG [WDS] wid:0, x:360, y:140, 1200*800 ----------------
+DEBUG [PG]= 00:00:29.320-size:0x0000-pos:0x03D996 ------
+DEBUG [END]= NO IMAGE ==================================================
+DEBUG [PARSER-END] SUP file parsing completed.
+
+Nothing changed !
+Elapsed time: 0.27s
